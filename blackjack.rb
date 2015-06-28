@@ -1,7 +1,6 @@
 # Calculate card total  
 def calculate_total(cards)
   card_faces = cards.map {|card| card[0]}
-  
   total = 0
   card_faces.each do |number|
     if number == 'Ace'
@@ -12,13 +11,12 @@ def calculate_total(cards)
       total += number.to_i
     end
   end
-  
+# Accounting for aces
   number_of_aces = card_faces.count('Ace')
   while total  >  21 && number_of_aces > 0
     total -= 10
     number_of_aces -= 1
   end
-  
   total
 end
 
@@ -33,14 +31,14 @@ def individual_card(card)
   card[0] + card[1]
 end
   
-# Welcome msg
+# Welcome message
 puts "Hi, there, kid. What's your name?"
 player_name = gets.chomp
 player_name = "Player" if player_name.empty?
 puts "Alrighty, #{player_name}, let's start a game of BlackJack."
-sleep 1
+sleep 2
 
-# Outcome msgs
+# Possible outcomes - messages
 dealer_win = "****Dealer won! Sorry, you lost, #{player_name}.****"
 player_win = "****You won, #{player_name}!****"
 dealer_win_blackjack = "****Blackjack! Dealer won! Sorry, you lost, #{player_name}.****"
@@ -49,12 +47,14 @@ player_bust = "****Bust! Sorry, #{player_name}.****"
 dealer_bust = "****Dealer bust! You won, #{player_name}!****"
 push = "****Push! It's a tie, #{player_name}!****"
 
-#GAME
+#GAMEPLAY
 loop do
   system "clear"
-# Create hands
+  
+# Create empty hands
   player_cards = []
   dealer_cards = []
+  
 # Deal
   puts "Dealing..."
   2.times do
@@ -69,7 +69,7 @@ loop do
   puts "Dealer's upcard is '#{individual_card(dealer_cards[1])}'."
   puts "-------------------------"
 
-# Player turn
+# Player's turn
   if player_total == 21 
     puts player_win_blackjack
     puts "-------------------------"
@@ -86,18 +86,15 @@ loop do
 
   while player_total < 21
     puts "What would you like to do, #{player_name}? (hit/stay)"
-    hit_stay = gets.chomp.downcase
-    
+    hit_stay = gets.chomp.downcase   
     until ['hit', 'stay'].include?(hit_stay)
       puts "You must choose. (hit/stay)"
       hit_stay = gets.chomp.downcase
     end
-
     if hit_stay == 'stay'
       puts "You chose to stay."
       break
     end
-
     player_cards << deck.pop
     player_total = calculate_total(player_cards)
     puts "You chose to hit. You've added '#{individual_card(player_cards.last)}' and your total is #{player_total}."
@@ -113,12 +110,13 @@ loop do
   end
   sleep 1
 
-# Dealer turn
+# Dealer's turn
   puts "-------------------------"
   puts "Dealer's turn."
   puts "Dealer's upcard is '#{individual_card(dealer_cards[1])}'. Dealer reveals downcard as '#{individual_card(dealer_cards[0])}'. Dealer's total is #{dealer_total}."
   puts "-------------------------"
   sleep 1
+
   if dealer_total == 21
     puts dealer_win_blackjack
     puts "-------------------------"
@@ -133,7 +131,6 @@ loop do
     puts "Dealer hits. Dealer adds '#{individual_card(dealer_cards.last)}' for a total of #{dealer_total}."
     sleep 1
   end  
-
   puts "-------------------------"
 
   if dealer_total > 21
@@ -151,8 +148,8 @@ loop do
     puts "Your total: #{player_total}. Dealer total: #{dealer_total}." 
     puts player_win
   end
-
   sleep 1
+
   puts "-------------------------"
   puts "Would you like to play again, #{player_name}? (yes/no)"
   break if gets.chomp.downcase != 'yes'
