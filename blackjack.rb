@@ -70,9 +70,15 @@ loop do
 # Player turn
   if player_total == 21 
     puts player_win_blackjack
+    puts "-------------------------"
+    puts "Would you like to play again, #{player_name}? (yes/no)"
+    next if gets.chomp.downcase == 'yes'
     break
   elsif player_total > 21 
     puts player_bust
+    puts "-------------------------"
+    puts "Would you like to play again, #{player_name}? (yes/no)"
+    next if gets.chomp.downcase == 'yes'
     break
   end
 
@@ -98,6 +104,9 @@ loop do
   puts "-------------------------"
   if player_total > 21 
     puts player_bust
+    puts "-------------------------"
+    puts "Would you like to play again, #{player_name}? (yes/no)"
+    next if gets.chomp.downcase == 'yes'
     break
   end
   sleep 1
@@ -110,6 +119,9 @@ loop do
   sleep 1
   if dealer_total == 21
     puts dealer_win_blackjack
+    puts "-------------------------"
+    puts "Would you like to play again, #{player_name}? (yes/no)"
+    next if gets.chomp.downcase == 'yes'
     break
   end
 
