@@ -13,8 +13,10 @@ def calculate_total(cards)
     end
   end
   
-  card_faces.select {|x| x == 'Ace'}.count.times do
-    total -= 10 if total > 21
+  number_of_aces = card_faces.count('Ace')
+  while total  >  21 && number_of_aces > 0
+    total -= 10
+    number_of_aces -= 1
   end
   
   total
@@ -72,13 +74,13 @@ loop do
     puts player_win_blackjack
     puts "-------------------------"
     puts "Would you like to play again, #{player_name}? (yes/no)"
-    next if gets.chomp.downcase == 'yes'
+    redo if gets.chomp.downcase == 'yes'
     break
   elsif player_total > 21 
     puts player_bust
     puts "-------------------------"
     puts "Would you like to play again, #{player_name}? (yes/no)"
-    next if gets.chomp.downcase == 'yes'
+    redo if gets.chomp.downcase == 'yes'
     break
   end
 
@@ -106,7 +108,7 @@ loop do
     puts player_bust
     puts "-------------------------"
     puts "Would you like to play again, #{player_name}? (yes/no)"
-    next if gets.chomp.downcase == 'yes'
+    redo if gets.chomp.downcase == 'yes'
     break
   end
   sleep 1
@@ -121,7 +123,7 @@ loop do
     puts dealer_win_blackjack
     puts "-------------------------"
     puts "Would you like to play again, #{player_name}? (yes/no)"
-    next if gets.chomp.downcase == 'yes'
+    redo if gets.chomp.downcase == 'yes'
     break
   end
 
@@ -155,4 +157,3 @@ loop do
   puts "Would you like to play again, #{player_name}? (yes/no)"
   break if gets.chomp.downcase != 'yes'
 end 
-  
